@@ -16,7 +16,7 @@
             "allowedValues": [
                 "Standard_LRS",
                 "Premium_LRS",
-                "Standard_RARGS"
+                "Standard_RAGRS"
             ],
             "metadata": {
                 "description": "Storage SKU"
@@ -24,15 +24,15 @@
         }
     },
     "variables": {
-        "storageAccount": "[toLower( concat( parameters('storageAccountPrefix'), uniqueString( resourceGroup().id ) ) )]"
+        "storageAccount": "[toLower(concat(parameters('storageAccountPrefix'), uniqueString( resourceGroup().id )))]"
     },
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
-            "sku":{
-                "name":"[parameters('accountType')]"
+            "sku": {
+                "name": "[parameters('accountType')]"
             },
-            "kind":"StorageV2",
+            "kind": "StorageV2",
             "apiVersion": "2018-07-01",
             "name": "[variables('storageAccount')]",
             "location": "[resourceGroup().location]",
@@ -41,5 +41,10 @@
             }
         }
     ],
-    "outputs": {}
+    "outputs": {
+        "storageAccount": {
+            "type": "string",
+            "value": "[variables('storageAccount')]"
+        }
+    }
 }
